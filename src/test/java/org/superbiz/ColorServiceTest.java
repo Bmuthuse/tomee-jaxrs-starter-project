@@ -26,6 +26,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.enterprise.inject.New;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
@@ -58,7 +59,7 @@ public class ColorServiceTest extends Assert {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class).addClasses(ColorService.class, Color.class, Author.class);
+        return ShrinkWrap.create(WebArchive.class).addClasses(ColorService.class, Color.class, NewService.class, Author.class);
     }
 
     /**
