@@ -58,7 +58,7 @@ public class ColorServiceTest extends Assert {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class).addClasses(ColorService.class, Color.class);
+        return ShrinkWrap.create(WebArchive.class).addClasses(ColorService.class, Color.class, Author.class);
     }
 
     /**
@@ -82,7 +82,7 @@ public class ColorServiceTest extends Assert {
             final WebClient webClient = WebClient.create(webappUrl.toURI());
             final Response response = webClient.path("color/green").post(null);
 
-            assertEquals(204, response.getStatus());
+            assertStatus(response, 204);
         }
 
         // GET
@@ -90,13 +90,17 @@ public class ColorServiceTest extends Assert {
             final WebClient webClient = WebClient.create(webappUrl.toURI());
             final Response response = webClient.path("color").get();
 
-            assertEquals(200, response.getStatus());
+            assertStatus(response, 200);
 
             final String content = slurp((InputStream) response.getEntity());
 
             assertEquals("green", content);
         }
 
+    }
+
+    private static void assertStatus(Response response, int expected) {
+        assertEquals(expected, response.getStatus());
     }
 
     @Test
@@ -108,10 +112,29 @@ public class ColorServiceTest extends Assert {
         final Color color = webClient.path("color/object").get(Color.class);
 
         assertNotNull(color);
-        assertEquals("orange", color.getName());
+        assertEquals("red", color.getName());
         assertEquals(0xE7, color.getR());
         assertEquals(0x71, color.getG());
         assertEquals(0x00, color.getB());
+    }
+
+    @Test
+    public void getColorObjectName() throws Exception {
+        final WebClient webClient = WebClient.create(webappUrl.toURI());
+        webClient.accept(MediaType.APPLICATION_JSON);
+
+        final Color color = webClient.path("color/object").get(Color.class);
+        assertNotNull(color);
+        assertEquals("RED", color.getName().toUpperCase());
+    }
+
+    @Test
+    public void getColorObjectAuthor() throws Exception {
+        final WebClient webClient = WebClient.create(webappUrl.toURI());
+        webClient.accept(MediaType.APPLICATION_JSON);
+
+        final Author author = webClient.path("color/author").get(Author.class);
+        assertNotNull(author);
     }
 
     /**

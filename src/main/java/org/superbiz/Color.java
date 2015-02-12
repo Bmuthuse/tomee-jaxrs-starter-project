@@ -25,6 +25,7 @@ public class Color {
     private int r;
     private int g;
     private int b;
+    private Author author = new Author("test", 50);
 
     public Color() {
     }
@@ -34,6 +35,7 @@ public class Color {
         this.r = r;
         this.g = g;
         this.b = b;
+
     }
 
     public String getName() {
@@ -66,5 +68,9 @@ public class Color {
 
     public void setB(int b) {
         this.b = b;
+    }
+
+    public Author getAuthor() {
+        return author;
     }
 }

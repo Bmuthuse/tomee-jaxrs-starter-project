@@ -18,9 +18,9 @@ If this file is deleted the default Tomcat 8080 port is used
 <arquillian>
   <container qualifier="tomee" default="true">
     <configuration>
-      <property name="httpPort">-1</property>
-      <property name="stopPort">-1</property>
-      <property name="ajpPort">-1</property>
+      <property name="httpPort">13456</property>
+      <property name="stopPort">13451</property>
+      <property name="ajpPort">13457</property>
     </configuration>
   </container>
 </arquillian>

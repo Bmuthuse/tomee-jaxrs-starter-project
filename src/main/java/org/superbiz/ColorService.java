@@ -50,6 +50,13 @@ public class ColorService {
     @GET
     @Produces({ APPLICATION_JSON })
     public Color getColorObject() {
-        return new Color("orange", 0xE7, 0x71, 0x00);
+        return new Color("red", 0xE7, 0x71, 0x00);
     }
+
+    @Path("author")
+    @GET
+    @Produces({ APPLICATION_JSON })
+    public Author getAuthor() {
+
+        return new Author("test1", 11);}
 }
